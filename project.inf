@@ -1,0 +1,4 @@
+Name: myx.distro-remote
+Title: Tools for working with myx.distro on remote host
+Augments: developer-sdk:recommended
+Provides: myx/myx.distro-remote

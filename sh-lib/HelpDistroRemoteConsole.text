@@ -1,0 +1,44 @@
+
+  Options:
+
+		--source
+		--deploy
+		--remote
+			Overrides default console type.
+
+		--manage
+			Injects and runs remote console from local files.
+		
+		--select-remote <remote-name-glob>
+			Use target from preconfigured `remotes`, 
+
+		--remotes <arguments...>
+			Manipulates the list of preconfigured (in current workspace) remotes.
+
+			Following operations are supported:
+
+				--upsert <remote-name> <option> <value> [<if-value>]
+					Sets remote's option value. Optionally, does it only if it's current value
+					is set to given if-value.
+
+				--select <remote-name> <option> [<default-value>]
+					Reads remote's option value. If value is not set, default-value is returned.
+
+				--select <remote-name> --all
+					Reads all remote's options values.
+
+				--delete <remote-name> [<option> [<if-value>]]
+					Deletes remote or an option for remote. Optionally, deletes the option 
+					only if it's value is set to given if-value.
+
+			Following options are allowed:
+
+				SSH_NAME
+				SSH_HOST
+				SSH_PORT
+				SSH_USER
+				SSH_HOME
+				SSH_ARGS
+
+		--select-remote-names
+			Prints all preconfigured remotes names.
