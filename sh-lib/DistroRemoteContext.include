@@ -1,0 +1,92 @@
+[ -z "$MMDAPP" ] && echo 'ERROR: $MMDAPP is not set!' >&2 && exit 1
+
+if ! type DistroRemoteContext >/dev/null 2>&1 ; then
+
+	MDRC_BIN="${MDRC_BIN:-$MMDAPP/.local}"
+
+	# DistroRemoteContext
+	DistroRemoteContext(){
+		case "$1" in
+			--uncache)
+				echo "DistroRemoteContext: clear cache" >&2
+			;;
+			--is-spec-option)
+				case "$2" in
+					--run-from-source|--run-from-.local)
+						return 0
+					;;
+				esac
+				set +e ; return 1
+			;;
+			*)
+				if DistroRemoteContext --is-spec-option "$1" ; then
+					local previousSpec="$MDSC_OPTION"
+					local adpcChangeSpec="true"
+			
+					[ -z "$MDSC_DETAIL" ] || echo "DistroRemoteContext: input spec: $1" >&2
+					. "$MDRC_BIN/myx/myx.distro-remote/sh-lib/DistroRemoteContextSetInputSpec.include"		
+					return 0
+				fi
+			;;
+		esac
+	}
+
+	if ! type Require >/dev/null 2>&1 ; then
+		Require(){
+			local distroCommand="$1" ; shift
+			if [ -z "$distroCommand" ] || [ "--help" == "$distroCommand" ] ; then
+				( . "$MDRC_BIN/myx/myx.distro-.local/sh-lib/HelpRequire.include" )
+				set +e ; return 1
+			fi
+			if type "${distroCommand%.fn.sh}" >/dev/null 2>&1 ; then
+				return 0
+			fi
+			
+			local ITEM
+			for ITEM in .local system remote source deploy ; do
+				if [ -f "$MDRC_BIN/myx/myx.distro-$ITEM/sh-scripts/${distroCommand%.fn.sh}.fn.sh" ] ; then
+					. "$MDRC_BIN/myx/myx.distro-$ITEM/sh-scripts/${distroCommand%.fn.sh}.fn.sh"
+					return 0
+				fi
+			done
+			source "${distroCommand%.fn.sh}.fn.sh"
+			return 0
+		}
+	fi
+	
+	
+	Remote(){
+		local distroCommand="$1" ; shift
+		if [ -z "$distroCommand" ] || [ "--help" == "$distroCommand" ] ; then
+			( . "$MDRC_BIN/myx/myx.distro-remote/sh-lib/HelpDistroRemote.include" )
+			set +e ; return 1
+		fi
+		if ! type "${distroCommand%.fn.sh}" >/dev/null 2>&1 ; then
+			. "${distroCommand%.fn.sh}.fn.sh"
+		fi
+		"${distroCommand%.fn.sh}" "$@"
+	}
+
+	if ! type Help >/dev/null 2>&1 ; then
+		Help(){
+			( . "$MDRC_BIN/myx/myx.distro-remote/sh-lib/HelpDistroRemoteConsole.include" )
+			set +e ; return 1
+		}
+	fi
+fi
+
+while true ; do
+	if [ "--verbose" = "$1" ] ; then
+		export MDSC_DETAIL="true"
+		shift
+		continue
+	fi 
+	if DistroRemoteContext --is-spec-option "$1" ; then
+		[ -z "$MDSC_DETAIL" ] || echo "DistroRemoteContext: input spec: $1" >&2
+		. "$MDRC_BIN/myx/myx.distro-remote/sh-lib/DistroRemoteContextSetInputSpec.include"		
+		shift
+		continue
+	fi
+	break
+done
+

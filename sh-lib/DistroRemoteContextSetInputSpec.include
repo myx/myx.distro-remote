@@ -1,0 +1,52 @@
+[ -z "$MMDAPP" ] && echo 'ERROR: $MMDAPP is not set!' >&2 && exit 1
+
+# DistroRemoteContextSetInputSpec
+
+
+if [ "$1" = "--run-from-source" ] && [ -d "$MMDAPP/source/" ] ; then
+	set -- "--run-from-source"
+else
+	set -- "--run-from-.local"
+fi
+
+if [ "$adpcChangeSpec" = "true" ] ; then
+	if [ -z "$1" ] ; then
+		echo "ERROR: DistroRemoteContextSetInputSpec: inputSpec argument is required!" >&2
+		exit 1
+	fi
+	if ! DistroRemoteContext --is-spec-option "$1" ; then
+		echo "ERROR: DistroRemoteContextSetInputSpec: inputSpec argument is invalid: $1" >&2
+		exit 1
+	fi
+fi
+
+case "$1" in
+	--run-from-.local)
+		MDRC_BIN="${MDRC_BIN:-$MMDAPP/.local}"
+		MDSC_INMODE=".local"
+		MDSC_OPTION="--run-from-.local"
+	;;
+	--run-from-source)
+		MDRC_BIN="${MDRC_BIN:-$MMDAPP/source}"
+		MDSC_INMODE="source"
+		MDSC_OPTION="--run-from-source"
+	;;
+	*)
+		echo "ERROR: DistroRemoteContextSetInputSpec: Invalid input spec: $argOption" >&2
+		exit 1
+	;;
+esac
+
+if [ -z "${previousSpec:-$MDSC_OPTION}" ] || [ "$previousSpec" != "$MDSC_OPTION" ] ; then
+	export MDRC_BIN
+	export MDSC_INMODE
+	export MDSC_OPTION
+	
+	echo "DistroRemoteContextSetInputSpec: mode: $MDSC_INMODE, spec: $MDSC_OPTION" >&2
+fi
+
+if [ ! -z "$MDSC_OUTPUT" ] && [ ! -d "$MDSC_OUTPUT" ] ; then
+	echo "DistroRemoteContextSetInputSpec: creating output folder: $MDSC_OUTPUT" >&2
+	mkdir -p "$MDSC_OUTPUT"
+fi
+ 
