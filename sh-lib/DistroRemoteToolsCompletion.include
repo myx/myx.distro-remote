@@ -15,8 +15,7 @@ case "$1" in
 	--completion-remote)
 		shift
 		Remote --completion-all \
-		| grep -e '^DistroRemote' \
-		| grep -e '\.fn\.sh$' \
+		| grep '^\(DistroRemote\|Remote\).*.fn.sh$' \
 		| sort -u \
 		| sed 's:\.fn\.sh$::' 
 		return 0
