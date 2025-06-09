@@ -12,7 +12,7 @@ case "$1" in
 		| sed 's:\.fn\.sh$::' 
 		return 0
 	;;
-	--completion-.local)
+	--completion-remote)
 		shift
 		Remote --completion-all \
 		| grep -e '^DistroRemote' \
