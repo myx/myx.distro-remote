@@ -31,6 +31,11 @@ DistroRemoteTools(){
 			. "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/DistroRemoteToolsCompletion.include"
 			set +e ; return 1
 		;;
+		--upgrade-remote-tools)
+			shift
+			bash "$MMDAPP/.local/myx/myx.distro-.local/sh-scripts/DistroLocalTools.fn.sh --install-distro-remote"
+			return 0
+		;;
 		''|--help)
 			echo "syntax: DistroRemoteTools.fn.sh <option>" >&2
 			echo "syntax: DistroRemoteTools.fn.sh [--help]" >&2
@@ -50,7 +55,7 @@ case "$0" in
 	*/myx/myx.distro-remote/sh-scripts/DistroRemoteTools.fn.sh)
 
 		if [ -z "$1" ] || [ "$1" = "--help" ] ; then
-			echo "syntax: DistroRemoteTools.fn.sh --help" >&2
+			echo "syntax: DistroRemoteTools.fn.sh --upgrade-remote-tools" >&2
 		fi
 
 		set -e
