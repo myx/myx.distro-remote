@@ -1,0 +1,15 @@
+echo >&2
+echo "This is DistroRemoteConsole. It runs in DistroRemote context and provides following commands:" >&2
+echo >&2
+
+if type Require >/dev/null 2>&1 ; then
+	Require --help
+fi
+if type Remote >/dev/null 2>&1 ; then
+	Remote --help
+fi
+
+echo >&2
+echo "All commands mentioned have shell completions which are available by pressing TAB key after" >&2
+echo "typing the command followed by space." >&2
+echo >&2
