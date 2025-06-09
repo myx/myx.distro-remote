@@ -14,7 +14,7 @@ case "$1" in
 	;;
 	''|--help)
 		shift
-		( . "$MDRC_BIN/myx/myx.distro-remote/sh-lib/HelpDistroRemote.include" )
+		( . "$MDRC_BIN/myx/myx.distro-remote/sh-lib/HelpRemote.include" )
 		set +e ; return 1
 	;;
 	--start-console)
