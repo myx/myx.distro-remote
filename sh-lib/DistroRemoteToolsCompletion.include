@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# ^^^ for syntax checking in the editor only
+
+MDRC_BIN="${MDRC_BIN:-$MMDAPP/.local}"
+
+case "$1" in
+	--completion-require)
+		shift
+		Remote --completion-all \
+		| grep -e '\.fn\.sh$' \
+		| sort -u \
+		| sed 's:\.fn\.sh$::' 
+		return 0
+	;;
+	--completion-.local)
+		shift
+		Remote --completion-all \
+		| grep -e '^DistroRemote' \
+		| grep -e '\.fn\.sh$' \
+		| sort -u \
+		| sed 's:\.fn\.sh$::' 
+		return 0
+	;;
+	--completion-all)
+		shift
+		( 
+			MDPATH=""
+			for ITEM in ".local" "system" "deploy" "source" "remote" ; do
+				if [ -d "$MDRC_BIN/myx/myx.distro-$ITEM/sh-scripts" ] ; then
+					MDPATH+=" $MDRC_BIN/myx/myx.distro-$ITEM/sh-scripts"
+				fi
+			done
+
+			find $MDPATH -type 'f' -name '*.sh' \
+			| sed -E "s:^$MDRC_BIN/myx/myx.distro-(.local|system|deploy|source|remote)/sh-scripts/::g" \
+			| sort
+		)
+		return 0
+	;;
+	*)
+		echo "ERROR: $MDSC_CMD: invalid option: $1" >&2
+		set +e ; return 1
+	;;
+esac
