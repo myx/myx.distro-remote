@@ -57,6 +57,11 @@ fi
 . "$MDRC_BIN/myx/myx.distro-remote/sh-lib/DistroRemoteContext.include"
 DistroRemoteContext --run-from-.local
 
+Help(){
+	( . "$MDRC_BIN/myx/myx.distro-remote/sh-lib/HelpDistroRemoteConsole.include" )
+	set +e ; return 1
+}
+
 complete -W "\` Remote --completion-all \`" "."
 complete -W "\` Remote --completion-all \`" "*"
 complete -W "\` Remote --completion-all \`" "which"
