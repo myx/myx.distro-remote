@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ^^^ for syntax checking in the editor only
 
-MDLC_BIN="${MDLC_BIN:-$MMDAPP/.local}"
+MDRC_BIN="${MDRC_BIN:-$MMDAPP/.local}"
 
 case "$1" in 
 	--shell-prompt)
@@ -14,7 +14,7 @@ case "$1" in
 	;;
 	''|--help)
 		shift
-		( . "$MDLC_BIN/myx/myx.distro-remote/sh-lib/HelpDistroRemote.include" )
+		( . "$MDRC_BIN/myx/myx.distro-remote/sh-lib/HelpDistroRemote.include" )
 		set +e ; return 1
 	;;
 	--start-console)

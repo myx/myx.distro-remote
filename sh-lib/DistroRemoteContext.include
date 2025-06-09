@@ -58,7 +58,7 @@ if ! type DistroRemoteContext >/dev/null 2>&1 ; then
 	Remote(){
 		case "$1" in
 			''|--*)
-				( . "$MDLC_BIN/myx/myx.distro-remote/sh-lib/DistroRemoteConsole.include" )
+				( . "$MDRC_BIN/myx/myx.distro-remote/sh-lib/DistroRemoteConsole.include" )
 				set +e ; return 1
 			;;
 		esac

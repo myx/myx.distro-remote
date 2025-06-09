@@ -8,8 +8,8 @@ export MDRC_BIN="$MMDAPP/.local"
 
 # search: 1) previous path; 2) distro {.local|system|deploy|source} scripts.
 
-if [ -d "$MDLC_BIN/myx/myx.distro-.local/sh-scripts" ] ; then
-	PATH+=":$MDLC_BIN/myx/myx.distro-.local/sh-scripts"
+if [ -d "$MDRC_BIN/myx/myx.distro-.local/sh-scripts" ] ; then
+	PATH+=":$MDRC_BIN/myx/myx.distro-.local/sh-scripts"
 
 	LocalConsole(){
 		return 0
