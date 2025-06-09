@@ -9,7 +9,7 @@ case "$1" in
 		return 0
 	;;
 	--completion-*)
-		. "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/DistroRemoteToolsCompletion.include"
+		. "$MDRC_BIN/myx/myx.distro-remote/sh-lib/DistroRemoteToolsCompletion.include"
 		set +e ; return 1
 	;;
 	''|--help)
@@ -18,7 +18,7 @@ case "$1" in
 		set +e ; return 1
 	;;
 	--start-console)
-		bash --rcfile "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc" -i "$@"
+		bash --rcfile "$MDRC_BIN/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc" -i "$@"
 		return 0
 	;;
 	*)
