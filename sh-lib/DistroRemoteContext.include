@@ -56,11 +56,13 @@ if ! type DistroRemoteContext >/dev/null 2>&1 ; then
 	
 	
 	Remote(){
+		case "$1" in
+			''|--*)
+				( . "$MDLC_BIN/myx/myx.distro-remote/sh-lib/DistroRemoteConsole.include" )
+				set +e ; return 1
+			;;
+		esac
 		local distroCommand="$1" ; shift
-		if [ -z "$distroCommand" ] || [ "--help" == "$distroCommand" ] ; then
-			( . "$MDRC_BIN/myx/myx.distro-remote/sh-lib/HelpDistroRemote.include" )
-			set +e ; return 1
-		fi
 		if ! type "${distroCommand%.fn.sh}" >/dev/null 2>&1 ; then
 			. "${distroCommand%.fn.sh}.fn.sh"
 		fi

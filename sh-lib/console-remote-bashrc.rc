@@ -8,12 +8,13 @@ export MDRC_BIN="$MMDAPP/.local"
 
 # search: 1) previous path; 2) distro {.local|system|deploy|source} scripts.
 
-PATH+=":$MDRC_BIN/myx/myx.distro-.local/sh-scripts"
+if [ -d "$MDLC_BIN/myx/myx.distro-.local/sh-scripts" ] ; then
+	PATH+=":$MDLC_BIN/myx/myx.distro-.local/sh-scripts"
 
-LocalConsole(){
-	. "$MDRC_BIN/myx/myx.distro-.local/sh-lib/DistroLocalConsole.include"
-	return 0
-}
+	LocalConsole(){
+		return 0
+	}
+fi
 
 if [ -d "$MDRC_BIN/myx/myx.distro-system/sh-scripts" ] ; then
 	PATH+=":$MDRC_BIN/myx/myx.distro-system/sh-scripts"
@@ -56,16 +57,14 @@ if [ -d "$MDRC_BIN/myx/myx.distro-remote/sh-scripts" ] ; then
 	}
 fi
 
-. "$MDRC_BIN/myx/myx.distro-.local/sh-lib/DistroRemoteContext.include"
+. "$MDRC_BIN/myx/myx.distro-remote/sh-lib/DistroRemoteContext.include"
 DistroRemoteContext --run-from-.local
 
-Require DistroRemoteTools
+complete -W "\` Remote --completion-all \`" "."
+complete -W "\` Remote --completion-all \`" "*"
+complete -W "\` Remote --completion-all \`" "which"
+complete -W "\` Remote --completion-require \`" "Require"
+complete -W "\` Remote --completion-remote \`" "Remote"
 
-complete -W "\` DistroRemoteTools --completion-all \`" "."
-complete -W "\` DistroRemoteTools --completion-all \`" "*"
-complete -W "\` DistroRemoteTools --completion-all \`" "which"
-complete -W "\` DistroRemoteTools --completion-require \`" "Require"
-complete -W "\` DistroRemoteTools --completion-remote \`" "Remote"
-
-PS1="\` RemoteConsole --shell-prompt \`: $PS1"
+PS1="\` Remote --shell-prompt \`: $PS1"
 export PS1
