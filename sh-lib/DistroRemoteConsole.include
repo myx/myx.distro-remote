@@ -5,7 +5,7 @@ MDRC_BIN="${MDRC_BIN:-$MMDAPP/.local}"
 
 case "$1" in 
 	--shell-prompt)
-		printf "MDRC:%s" ".local"
+		printf "MDRC:%s" "remote"
 		return 0
 	;;
 	--completion-*)
