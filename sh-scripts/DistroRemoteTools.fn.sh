@@ -33,7 +33,7 @@ DistroRemoteTools(){
 		;;
 		--upgrade-remote-tools)
 			shift
-			bash "$MMDAPP/.local/myx/myx.distro-.local/sh-scripts/DistroLocalTools.fn.sh --install-distro-remote"
+			bash "$MMDAPP/.local/myx/myx.distro-.local/sh-scripts/DistroLocalTools.fn.sh" --install-distro-remote
 			return 0
 		;;
 		''|--help)
