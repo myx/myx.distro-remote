@@ -1,24 +1,22 @@
 #!/usr/bin/env bash
 # ^^^ for syntax checking in the editor only
 
-MDRC_BIN="${MDRC_BIN:-$MMDAPP/.local}"
-
 case "$1" in 
 	--shell-prompt)
 		printf "MDRC:%s" "remote"
 		return 0
 	;;
 	--completion-*)
-		. "$MDRC_BIN/myx/myx.distro-remote/sh-lib/DistroRemoteToolsCompletion.include"
+		. "$MDLC_ORIGIN/myx/myx.distro-remote/sh-lib/DistroRemoteToolsCompletion.include"
 		set +e ; return 1
 	;;
 	''|--help)
 		shift
-		( . "$MDRC_BIN/myx/myx.distro-remote/sh-lib/HelpRemote.include" )
+		( . "$MDLC_ORIGIN/myx/myx.distro-remote/sh-lib/HelpRemote.include" )
 		set +e ; return 1
 	;;
 	--start-console)
-		bash --rcfile "$MDRC_BIN/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc" -i "$@"
+		bash --rcfile "$MDLC_ORIGIN/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc" -i "$@"
 		return 0
 	;;
 	*)
