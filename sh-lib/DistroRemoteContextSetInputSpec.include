@@ -3,12 +3,19 @@
 
 : "${MMDAPP:?ERROR: MMDAPP is not set}"
 
-# DistroRemoteContextSetInputSpec
-
-
-if [ "$1" = "--run-from-source" ] && [ -d "$MMDAPP/source/" ] ; then
-	set -- "--run-from-source"
-else
+if [ -z "$1" ] || [ "$1" = "--run-from-detect" ] ; then
+	if [ ! -z "$MDLC_OPTION" ] ; then
+		set -- "$MDLC_OPTION"
+	elif [ -f "$MMDAPP/source/myx/myx.distro-remote/sh-lib/DistroRemoteContext.include" ] ; then
+		set -- "--run-from-source"
+	elif [ -f "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/DistroRemoteContext.include" ] ; then
+		set -- "--run-from-.local"
+	else
+		echo "ERROR: DistroRemoteContextSetInputSpec: --run-from-detect can't find/detect origin" >&2
+		exit 1
+	fi
+elif [ "$1" = "--run-from-source" ] && [ ! -f "$MMDAPP/source/myx/myx.distro-remote/sh-lib/DistroRemoteContext.include" ] ; then
+	echo "WARNING: DistroRemoteContextSetInputSpec: $1 requested but source is not available, defaulting to --run-from-local" >&2
 	set -- "--run-from-.local"
 fi
 
@@ -23,30 +30,22 @@ fi
 case "$1" in
 	--run-from-.local)
 		MDLC_ORIGIN="${MDLC_ORIGIN:-$MMDAPP/.local}"
-		MDSC_INMODE=".local"
-		MDSC_OPTION="--run-from-.local"
+		MDLC_OPTION="--run-from-.local"
 	;;
 	--run-from-source)
 		MDLC_ORIGIN="${MDLC_ORIGIN:-$MMDAPP/source}"
-		MDSC_INMODE="source"
-		MDSC_OPTION="--run-from-source"
+		MDLC_OPTION="--run-from-source"
 	;;
 	*)
-		echo "ERROR: DistroRemoteContextSetInputSpec: Invalid input spec: $argOption" >&2
+		echo "ERROR: DistroRemoteContextSetInputSpec: Invalid input spec: $1" >&2
 		exit 1
 	;;
 esac
 
-if [ -z "${previousSpec:-$MDSC_OPTION}" ] || [ "$previousSpec" != "$MDSC_OPTION" ] ; then
+if [ -z "${previousSpec:-$MDLC_OPTION}" ] || [ "$previousSpec" != "$MDLC_OPTION" ] ; then
 	export MDLC_ORIGIN
-	export MDSC_INMODE
-	export MDSC_OPTION
+	export MDLC_OPTION
 	
-	echo "DistroRemoteContextSetInputSpec: mode: $MDSC_INMODE, spec: $MDSC_OPTION" >&2
-fi
-
-if [ ! -z "$MDSC_OUTPUT" ] && [ ! -d "$MDSC_OUTPUT" ] ; then
-	echo "DistroRemoteContextSetInputSpec: creating output folder: $MDSC_OUTPUT" >&2
-	mkdir -p "$MDSC_OUTPUT"
+	echo "DistroRemoteContextSetInputSpec: spec: $MDLC_OPTION" >&2
 fi
  
