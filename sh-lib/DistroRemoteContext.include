@@ -9,7 +9,9 @@ if ! type DistroRemoteContext >/dev/null 2>&1 ; then
 	DistroRemoteContext(){
 		case "$1" in
 			--uncache)
+				shift
 				echo "DistroRemoteContext: clear cache" >&2
+				return 0
 			;;
 			--is-spec-option)
 				case "$2" in
@@ -79,7 +81,7 @@ while true ; do
 		continue
 	fi 
 	if DistroRemoteContext --is-spec-option "$1" ; then
-		[ -z "$MDSC_DETAIL" ] || echo "DistroRemoteContext: input spec: $1" >&2
+		[ -n "$MDSC_DETAIL" ] && echo "DistroRemoteContext: input spec: $1" >&2
 		. "$MDRC_BIN/myx/myx.distro-remote/sh-lib/DistroRemoteContextSetInputSpec.include"		
 		shift
 		continue
