@@ -4,8 +4,8 @@ if [ -z "$MMDAPP" ] ; then
 	set -e
 	export MMDAPP="$( cd $(dirname "$0")/../../../.. ; pwd )"
 	echo "$0: Working in: $MMDAPP"  >&2
-	[ -d "$MMDAPP/.local" ] || ( echo "ERROR: expecting '.local' directory." >&2 && exit 1 )
-	[ -d "$MMDAPP/remote" ] || ( echo "ERROR: expecting 'remote' directory." >&2 && exit 1 )
+	[ -d "$MMDAPP/.local" ] || ( echo "⛔ ERROR: expecting '.local' directory." >&2 && exit 1 )
+	[ -d "$MMDAPP/remote" ] || ( echo "⛔ ERROR: expecting 'remote' directory." >&2 && exit 1 )
 fi
 
 
@@ -33,11 +33,11 @@ DistroRemoteConsole(){
 				return 0
 			;;
 			'')
-				echo "ERROR: $MDSC_CMD: more arguments expected" >&2
+				echo "⛔ ERROR: $MDSC_CMD: more arguments expected" >&2
 				set +e ; return 1
 			;;
 			*)
-				echo "ERROR: $MDSC_CMD: invalid option: $1" >&2
+				echo "⛔ ERROR: $MDSC_CMD: invalid option: $1" >&2
 				set +e ; return 1
 			;;
 		esac

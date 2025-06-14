@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ^^^ for syntax checking in the editor only
 
-: "${MMDAPP:?ERROR: MMDAPP is not set}"
+: "${MMDAPP:?⛔ ERROR: MMDAPP is not set}"
 
 if [ -z "$1" ] || [ "$1" = "--run-from-detect" ] ; then
 	if [ ! -z "$MDLC_OPTION" ] ; then
@@ -11,7 +11,7 @@ if [ -z "$1" ] || [ "$1" = "--run-from-detect" ] ; then
 	elif [ -f "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/DistroRemoteContext.include" ] ; then
 		set -- "--run-from-.local"
 	else
-		echo "ERROR: DistroRemoteContextSetInputSpec: --run-from-detect can't find/detect origin" >&2
+		echo "⛔ ERROR: DistroRemoteContextSetInputSpec: --run-from-detect can't find/detect origin" >&2
 		exit 1
 	fi
 elif [ "$1" = "--run-from-source" ] && [ ! -f "$MMDAPP/source/myx/myx.distro-remote/sh-lib/DistroRemoteContext.include" ] ; then
@@ -20,9 +20,9 @@ elif [ "$1" = "--run-from-source" ] && [ ! -f "$MMDAPP/source/myx/myx.distro-rem
 fi
 
 if [ "$adpcChangeSpec" = "true" ] ; then
-	: "${1:?ERROR: DistroRemoteContextSetInputSpec: inputSpec argument is required}"
+	: "${1:?⛔ ERROR: DistroRemoteContextSetInputSpec: inputSpec argument is required}"
 	if ! DistroRemoteContext --is-spec-option "$1" ; then
-		echo "ERROR: DistroRemoteContextSetInputSpec: inputSpec argument is invalid: $1" >&2
+		echo "⛔ ERROR: DistroRemoteContextSetInputSpec: inputSpec argument is invalid: $1" >&2
 		exit 1
 	fi
 fi
@@ -37,7 +37,7 @@ case "$1" in
 		MDLC_OPTION="--run-from-source"
 	;;
 	*)
-		echo "ERROR: DistroRemoteContextSetInputSpec: Invalid input spec: $1" >&2
+		echo "⛔ ERROR: DistroRemoteContextSetInputSpec: Invalid input spec: $1" >&2
 		exit 1
 	;;
 esac
