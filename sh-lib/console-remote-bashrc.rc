@@ -25,7 +25,9 @@ fi
 if [ -d "$MDLT_ORIGIN/myx/myx.distro-deploy/sh-scripts" ] ; then
 	PATH+=":$MDLT_ORIGIN/myx/myx.distro-deploy/sh-scripts"
 
-	echo "LocalConsole: Type 'DeployConsole' to start Deploy Console." >&2
+	if [ -t 0 ]; then
+		echo "RemoteConsole: Type 'DeployConsole' to start Deploy Console." >&2
+	fi
 
 	DeployConsole(){
 		bash --rcfile "$MDLT_ORIGIN/myx/myx.distro-deploy/sh-lib/console-deploy-bashrc.rc" -i "$@"
@@ -36,7 +38,9 @@ fi
 if [ -d "$MDLT_ORIGIN/myx/myx.distro-source/sh-scripts" ] ; then
 	PATH+=":$MDLT_ORIGIN/myx/myx.distro-source/sh-scripts"
 
-	echo "LocalConsole: Type 'SourceConsole' to start Source Console." >&2
+	if [ -t 0 ]; then
+		echo "RemoteConsole: Type 'SourceConsole' to start Source Console." >&2
+	fi
 
 	SourceConsole(){
 		bash --rcfile "$MDLT_ORIGIN/myx/myx.distro-source/sh-lib/console-source-bashrc.rc" -i "$@"
@@ -47,7 +51,9 @@ fi
 if [ -d "$MDLT_ORIGIN/myx/myx.distro-remote/sh-scripts" ] ; then
 	PATH+=":$MDLT_ORIGIN/myx/myx.distro-remote/sh-scripts"
 
-	echo "LocalConsole: Type 'RemoteConsole' to start Remote Console." >&2
+	if [ -t 0 ]; then
+		echo "RemoteConsole: Type 'RemoteConsole' to start Remote Console." >&2
+	fi
 
 	RemoteConsole(){
 		bash --rcfile "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc" -i "$@"
