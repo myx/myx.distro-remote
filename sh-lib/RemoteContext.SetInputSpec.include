@@ -4,8 +4,8 @@
 : "${MMDAPP:?⛔ ERROR: MMDAPP is not set}"
 
 if [ -z "$1" ] || [ "$1" = "--run-from-detect" ] ; then
-	if [ -n "$MDLC_OPTION" ] ; then
-		set -- "$MDLC_OPTION"
+	if [ -n "$MDLT_OPTION" ] ; then
+		set -- "$MDLT_OPTION"
 	elif [ -f "$MMDAPP/source/myx/myx.distro-remote/sh-lib/RemoteContext.include" ] ; then
 		set -- "--run-from-source"
 	elif [ -f "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/RemoteContext.include" ] ; then
@@ -30,11 +30,11 @@ fi
 case "$1" in
 	--run-from-.local)
 		MDLT_ORIGIN="${MDLT_ORIGIN:-$MMDAPP/.local}"
-		MDLC_OPTION="--run-from-.local"
+		MDLT_OPTION="--run-from-.local"
 	;;
 	--run-from-source)
 		MDLT_ORIGIN="${MDLT_ORIGIN:-$MMDAPP/source}"
-		MDLC_OPTION="--run-from-source"
+		MDLT_OPTION="--run-from-source"
 	;;
 	*)
 		echo "⛔ ERROR: RemoteContext.SetInputSpec: Invalid input spec: $1" >&2
@@ -42,10 +42,10 @@ case "$1" in
 	;;
 esac
 
-if [ -z "${previousSpec:-$MDLC_OPTION}" ] || [ "$previousSpec" != "$MDLC_OPTION" ] ; then
+if [ -z "${previousSpec:-$MDLT_OPTION}" ] || [ "$previousSpec" != "$MDLT_OPTION" ] ; then
 	export MDLT_ORIGIN
-	export MDLC_OPTION
+	export MDLT_OPTION
 	
-	echo "RemoteContext.SetInputSpec: spec: $MDLC_OPTION" >&2
+	echo "RemoteContext.SetInputSpec: spec: $MDLT_OPTION" >&2
 fi
  

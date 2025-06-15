@@ -3,7 +3,7 @@
 
 : "${MMDAPP:?⛔ ERROR: MMDAPP is not set}"
 
-MDLT_ORIGIN="${MDLT_ORIGIN:-$MMDAPP/.local}"
+: "${MDLT_ORIGIN:=$MMDAPP/.local}"
 
 if ! type DistroRemoteContext >/dev/null 2>&1 ; then
 	DistroRemoteContext(){
