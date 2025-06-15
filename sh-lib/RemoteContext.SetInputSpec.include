@@ -4,7 +4,7 @@
 : "${MMDAPP:?⛔ ERROR: MMDAPP is not set}"
 
 if [ -z "$1" ] || [ "$1" = "--run-from-detect" ] ; then
-	if [ ! -z "$MDLC_OPTION" ] ; then
+	if [ -n "$MDLC_OPTION" ] ; then
 		set -- "$MDLC_OPTION"
 	elif [ -f "$MMDAPP/source/myx/myx.distro-remote/sh-lib/RemoteContext.include" ] ; then
 		set -- "--run-from-source"
