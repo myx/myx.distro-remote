@@ -5,7 +5,7 @@
 [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc" 
 
 . "${MDLT_ORIGIN:-$MMDAPP/.local}/myx/myx.distro-remote/sh-lib/RemoteContext.include"
-DistroRemoteContext --run-from-.local
+DistroRemoteContext --run-from-detect
 
 # search: 1) previous path; 2) distro {.local|system|deploy|source} scripts.
 
