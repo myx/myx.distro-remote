@@ -20,7 +20,7 @@ DistroRemoteTools(){
 
 	case "$1" in
 		--make-*)
-			. "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/DistroRemoteToolsMake.include"
+			. "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/RemoteTools.Make.include"
 			set +e ; return 1
 		;;
 		--system-config-option|--custom-config-option)

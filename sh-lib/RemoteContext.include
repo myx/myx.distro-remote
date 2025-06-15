@@ -27,7 +27,7 @@ if ! type DistroRemoteContext >/dev/null 2>&1 ; then
 					local adpcChangeSpec="true"
 			
 					[ -z "$MDSC_DETAIL" ] || echo "DistroRemoteContext: input spec: $1" >&2
-					. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/DistroRemoteContext.SetInputSpec.include"		
+					. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/RemoteContext.SetInputSpec.include"		
 					return 0
 				fi
 			;;
@@ -62,7 +62,7 @@ if ! type Remote >/dev/null 2>&1 ; then
 	Remote(){
 		case "$1" in
 			''|--*)
-				( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/DistroRemoteConsole.include" )
+				( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/RemoteConsole.include" )
 				set +e ; return 1
 			;;
 		esac
@@ -82,7 +82,7 @@ while true ; do
 	fi 
 	if DistroRemoteContext --is-spec-option "$1" ; then
 		[ -n "$MDSC_DETAIL" ] && echo "DistroRemoteContext: input spec: $1" >&2
-		. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/DistroRemoteContext.SetInputSpec.include"		
+		. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/RemoteContext.SetInputSpec.include"		
 		shift
 		continue
 	fi

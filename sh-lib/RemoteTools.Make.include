@@ -17,7 +17,7 @@ case "$1" in
 		set -e
 		( 
 			DistroRemoteTools(){
-				. "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/DistroRemoteToolsMake.include"
+				. "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/RemoteTools.Make.include"
 			}
 			DistroRemoteTools --make-console-script > "$MMDAPP/DistroRemoteConsole.sh"
 		)
