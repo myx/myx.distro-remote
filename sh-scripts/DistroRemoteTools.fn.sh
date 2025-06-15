@@ -27,10 +27,6 @@ DistroRemoteTools(){
 			. "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/DistroRemoteToolsConfig.include"
 			set +e ; return 1
 		;;
-		--completion-*)
-			. "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/DistroRemoteToolsCompletion.include"
-			set +e ; return 1
-		;;
 		--upgrade-remote-tools)
 			shift
 			bash "$MMDAPP/.local/myx/myx.distro-.local/sh-scripts/DistroLocalTools.fn.sh" --install-distro-remote
