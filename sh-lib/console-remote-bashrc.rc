@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # ^^^ for syntax checking in the editor only
 
-echo "LocalConsole: Working in $MMDAPP" >&2
+[ -z "$MDLT_ORIGIN" ] && echo "RemoteConsole: Working in $MMDAPP" >&2
 [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc" 
 
-export MDLT_ORIGIN="$MMDAPP/.local"
+. "${MDLT_ORIGIN:-$MMDAPP/.local}/myx/myx.distro-remote/sh-lib/RemoteContext.include"
+DistroRemoteContext --run-from-.local
 
 # search: 1) previous path; 2) distro {.local|system|deploy|source} scripts.
 
@@ -54,8 +55,6 @@ if [ -d "$MDLT_ORIGIN/myx/myx.distro-remote/sh-scripts" ] ; then
 	}
 fi
 
-. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/RemoteContext.include"
-DistroRemoteContext --run-from-.local
 
 Help(){
 	( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/HelpDistroRemoteConsole.include" )
