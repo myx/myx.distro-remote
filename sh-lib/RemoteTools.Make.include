@@ -48,19 +48,51 @@ case "$1" in
 
 			[ -d "$MMDAPP/.local" ] || ( echo "⛔ ERROR: expecting '$MMDAPP/.local' directory." >&2 && exit 1 )
 
+			MDLT_CONSOLE_ORIGIN="$( ( \
+				. "$MMDAPP/.local/MDLT.settings.env" ; \
+				echo "${MDLT_CONSOLE_ORIGIN:-.local}" \
+			) )"
+			MDLC_INMODE="${MDLT_CONSOLE_ORIGIN#$MMDAPP/}"
+			case "$MDLC_INMODE" in
+				.local)
+					export MDLT_ORIGIN="$MMDAPP/.local"
+				;;
+				source)
+					if [ -f "$MMDAPP/source/myx/myx.distro-.local/sh-lib/LocalContext.include" ] ; then
+						export MDLT_ORIGIN="$MMDAPP/$MDLC_INMODE"
+					else
+						export MDLT_ORIGIN="$MMDAPP/.local"
+					fi
+				;;
+				/*)
+					if [ -f "$MDLC_INMODE/myx/myx.distro-.local/sh-lib/LocalContext.include" ] ; then
+						export MDLT_ORIGIN="$MDLC_INMODE"
+					else
+						export MDLT_ORIGIN="$MMDAPP/.local"
+					fi
+				;;
+				*)
+					export MDLT_ORIGIN="$MMDAPP/.local"
+				;;
+			esac
+			if [ ! -f "$MMDAPP/source/myx/myx.distro-source/sh-lib/SourceContext.include" ] ; then
+				echo "⛔ ERROR: Context.SetInputSpec: can't find/detect origin" >&2
+				exit 1
+			fi
+
 			cd "$MMDAPP"
 			export MMDAPP
 
 			if [ "$1" == "--non-interactive" ] ; then
 				shift
 				{
-					echo . "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc"
+					echo . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc"
 					cat
 				} | bash "$@"
 				exit 0
 			fi
 			
-			bash --rcfile "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc" -i "$@"
+			bash --rcfile "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc" -i "$@"
 DISTROCONSOLE
 
 		return 0
