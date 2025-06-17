@@ -12,7 +12,7 @@ case "$1" in
 	;;
 	''|--help)
 		shift
-		( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/HelpRemote.include" )
+		( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/HelpRemote.include" )
 		set +e ; return 1
 	;;
 	--start-console)

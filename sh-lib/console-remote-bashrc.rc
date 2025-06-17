@@ -63,7 +63,7 @@ fi
 
 
 Help(){
-	( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/HelpDistroRemoteConsole.include" )
+	( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/HelpDistroRemoteConsole.include" )
 	set +e ; return 1
 }
 
