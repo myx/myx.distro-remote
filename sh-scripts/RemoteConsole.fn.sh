@@ -54,7 +54,7 @@ case "$0" in
 			echo "syntax: DistroRemoteConsole.sh --interactive" >&2
 			echo "syntax: DistroRemoteConsole.sh [--help]" >&2
 			if [ "$1" = "--help" ] ; then
-				cat "$MMDAPP/source/myx/myx.distro-image/sh-lib/help/HelpRemoteConsole.text" >&2
+				cat "$MDLT_ORIGIN/myx/myx.distro-image/sh-lib/help/HelpRemoteConsole.text" >&2
 			fi
 			exit 1
 		fi
