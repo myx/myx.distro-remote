@@ -33,8 +33,8 @@ DistroRemoteTools(){
 			return 0
 		;;
 		''|--help)
-			echo "syntax: DistroRemoteTools.fn.sh <option>" >&2
-			echo "syntax: DistroRemoteTools.fn.sh [--help]" >&2
+			echo "📘 syntax: DistroRemoteTools.fn.sh <option>" >&2
+			echo "📘 syntax: DistroRemoteTools.fn.sh [--help]" >&2
 			if [ "$1" = "--help" ] ; then
 				cat "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/HelpDistroRemoteTools.text" >&2
 			fi
