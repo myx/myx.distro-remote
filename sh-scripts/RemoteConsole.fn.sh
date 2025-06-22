@@ -20,11 +20,34 @@ DistroRemoteConsole(){
 
 	while true ; do
 		case "$1" in
+			--start-console)
+				shift
+				Remote --start-remote-console "$@"
+				return 0
+			;;
+			--start-local-console)
+				shift
+				Remote --start-.local-console "$@"
+				return 0
+			;;
+			--start-*-console)
+				local type=${1#--start-}; type=${type%-console}
+				local file="$MDLT_ORIGIN/myx/myx.distro-$type/sh-lib/console-$type-bashrc.rc"
+				[ -f "$file" ] || {
+					echo "⛔ ERROR: $1 subsystem is not installed in this workspace" >&2
+					set +e ; return 1
+				}
+				shift
+				bash --rcfile "$file" -i "$@"
+				return 0
+			;;
 			--source|--deploy|--remote|--manage)
+				## not done
 				consoleModeOverride="${1:2}"
 				shift
 			;;
 			--interactive)
+				## not done
 				shift
 
 				echo "Not yet!"
