@@ -53,11 +53,21 @@ Help(){
 	set +e ; return 1
 }
 
-complete -W "\` Remote --completion-all \`" "."
-complete -W "\` Remote --completion-all \`" "*"
-complete -W "\` Remote --completion-all \`" "which"
-complete -W "\` Remote --completion-require \`" "Require"
-complete -W "\` Remote --completion-remote \`" "Remote"
+# ⚠️ Order matters in Bash 3.2: the wildcard ("*") registration must come before the specific (Distro) one, so that when you type:
+#complete -W "Help Action Require Distro Deploy Source" \
 
+#if complete -D &>/dev/null; then
+#	complete -F Distro -D
+#fi
+
+complete -W "Help Require" \
+         -o default -o filenames \
+         "*"
+complete -F Remote \
+         -o filenames \
+        "Action" "Require" "Remote" "Distro" "Deploy" "Source"
+
+PROMPT_COMMAND="set +e"
 PS1="\` Remote --shell-prompt \`: $PS1"
+
 export PS1 PATH
