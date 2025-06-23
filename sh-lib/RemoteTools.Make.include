@@ -6,7 +6,7 @@ case "$1" in
 		shift
 
 		if [ -z "$MDLT_ORIGIN" ] || [ "$MDLT_ORIGIN" == "$MMDAPP/.local" ] ; then
-			touch $MMDAPP/.local/MDLC_REMOTE_ENV_SETTINGS.env
+			touch $MMDAPP/.local/MDLC.remote.settings.env
 		fi
 
 		DistroRemoteTools --make-console-command "$@"
