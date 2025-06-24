@@ -5,7 +5,7 @@ while true ; do
 case "$1" in 
 	--shell-prompt)
 		TEMPLATE1="%s: \[\e]0;\u@\h: \w\a\]\[\e[0;32m\]\u@\H\[\e[m\]:\[\e[0;34m\]\w\[\e[m\]\[\e[0;32m\]\$\[\e[m\] \[\e[0m\]"
-		TEMPLATE1='\[\e]0;\u@\H: \w\a\]\n┌─[%s \[\e[0;32m\]\u@\H\[\e[m\]:\[\e[0;34m\]\w\[\e[m\]]\n└─\[\e[0;32m\]\$\[\e[m\] \[\e[0m\]'
+		TEMPLATE1='\[\e]0;\u@\H: \w\a\]\n┌─[📡 MDRC %s \[\e[0;32m\]\u@\H\[\e[m\]:\[\e[0;34m\]\w\[\e[m\] ]\n└─\[\e[0;32m\]\$\[\e[m\] \[\e[0m\]'
 		printf "$TEMPLATE1" MDRC
 		
 		return 0
