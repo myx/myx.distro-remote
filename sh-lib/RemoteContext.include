@@ -62,14 +62,14 @@ if ! type DistroRemoteContext >/dev/null 2>&1 ; then
 				if [ -n "$MDLT_ORIGIN" ] && [ -n "$MDLT_OPTION" ] ; then
 					return 0
 				fi
-				[ -z "$MDSC_DETAIL" ] || echo "DistroLocalContext: input spec: $1" >&2
-				. "$MDLT_ORIGIN/myx/myx.distro-.local/sh-lib/LocalContext.SetInputSpec.include"		
+				[ -z "$MDSC_DETAIL" ] || echo "DistroRemoteContext: input spec: $1" >&2
+				. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/RemoteContext.SetInputSpec.include"
 				return 0
 			;;
 			--run-from-*|--init-*)
 				if DistroRemoteContext --is-spec-option "$1" ; then
 					[ -z "$MDSC_DETAIL" ] || echo "DistroRemoteContext: input spec: $1" >&2
-					. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/RemoteContext.SetInputSpec.include"		
+					. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/RemoteContext.SetInputSpec.include"
 					return 0
 				fi
 			;;
