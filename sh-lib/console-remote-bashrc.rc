@@ -67,7 +67,6 @@ complete -F Remote \
          -o filenames \
         "Action" "Require" "Remote" "Distro" "Deploy" "Source"
 
-PROMPT_COMMAND="set +e"
-PS1="\` Remote --shell-prompt \`: $PS1"
+PROMPT_COMMAND='set +e ; PS1="$( Remote --shell-prompt )"'
 
 export PS1 PATH
