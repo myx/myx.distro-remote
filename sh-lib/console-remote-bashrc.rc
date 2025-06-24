@@ -69,4 +69,4 @@ complete -F Remote \
 
 PROMPT_COMMAND='set +e ; PS1="$( Remote --shell-prompt )"'
 
-export PS1 PATH
+export PROMPT_COMMAND PATH
