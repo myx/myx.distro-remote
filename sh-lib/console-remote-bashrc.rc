@@ -67,6 +67,7 @@ complete -F Remote \
          -o filenames \
         "Action" "Require" "Remote" "Distro" "Deploy" "Source"
 
-PROMPT_COMMAND='set +e ; history -w; history -r ; PS1="$( Remote --shell-prompt )"'
+export LANG=en_US.UTF-8
 
+PROMPT_COMMAND='set +e ; history -w; history -r ; PS1="$( Remote --shell-prompt )"'
 export PROMPT_COMMAND PATH
