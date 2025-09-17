@@ -5,7 +5,7 @@ case "$1" in
 	--make-workspace-integration-files)
 		shift
 
-		if [ -z "$MDLT_ORIGIN" ] || [ "$MDLT_ORIGIN" == "$MMDAPP/.local" ] ; then
+		if [ -z "$MDLT_ORIGIN" ] || [ "$MDLT_ORIGIN" = "$MMDAPP/.local" ] ; then
 			touch $MMDAPP/.local/MDLC.remote.settings.env
 		fi
 
