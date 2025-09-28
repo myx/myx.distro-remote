@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# ^^^ for syntax checking in the editor only
+
+# TODO: list configured remotes
+
+cat <<CODEWORKSPACE
+			{
+				"label": "🖥️ Start Remote Console...",
+				"type": "shell",
+				"command": "bash '$MMDAPP/DistroRemoteConsole.sh'",
+				"group": { 
+					"kind": "build", 
+					"isDefault": true 
+				}
+			},
+CODEWORKSPACE
