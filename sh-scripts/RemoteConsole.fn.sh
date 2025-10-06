@@ -71,12 +71,12 @@ DistroRemoteConsole(){
 case "$0" in
 	*/myx/myx.distro-image/sh-scripts/DistroRemoteConsole.sh)
 
-		if [ -z "$1" ] || [ "$1"="--help" ] ; then
+		if [ -z "$1" ] || [ "$1" = "--help" ] ; then
 			echo "📘 syntax: DistroRemoteConsole.sh [--{source|deploy|remote|manage}] [<project-name-glob>]" >&2
 			echo "📘 syntax: DistroRemoteConsole.sh [--{source|deploy|remote|manage}] --select-remote [<remote-name-glob>]" >&2
 			echo "📘 syntax: DistroRemoteConsole.sh --interactive" >&2
 			echo "📘 syntax: DistroRemoteConsole.sh [--help]" >&2
-			if [ "$1"="--help" ] ; then
+			if [ "$1" = "--help" ] ; then
 				cat "$MDLT_ORIGIN/myx/myx.distro-image/sh-lib/help/HelpRemoteConsole.text" >&2
 			fi
 			exit 1
