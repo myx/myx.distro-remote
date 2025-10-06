@@ -35,7 +35,7 @@ DistroRemoteTools(){
 		''|--help)
 			echo "📘 syntax: DistroRemoteTools.fn.sh <option>" >&2
 			echo "📘 syntax: DistroRemoteTools.fn.sh [--help]" >&2
-			if [ "$1" = "--help" ] ; then
+			if [ "$1"="--help" ] ; then
 				cat "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/HelpDistroRemoteTools.text" >&2
 			fi
 			set +e ; return 1
@@ -50,7 +50,7 @@ DistroRemoteTools(){
 case "$0" in
 	*/myx/myx.distro-remote/sh-scripts/DistroRemoteTools.fn.sh)
 
-		if [ -z "$1" ] || [ "$1" = "--help" ] ; then
+		if [ -z "$1" ] || [ "$1"="--help" ] ; then
 			echo "syntax: DistroRemoteTools.fn.sh --upgrade-remote-tools" >&2
 		fi
 
