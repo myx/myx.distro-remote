@@ -106,4 +106,5 @@ complete -F Remote \
 export LANG=en_US.UTF-8
 
 PROMPT_COMMAND='set +e ; history -w; history -r ; PS1="$( Remote --shell-prompt )"'
-export PROMPT_COMMAND PATH
+
+export PATH
