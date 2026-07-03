@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# ^^^ for syntax checking in the editor only
-
-. "$MMDAPP/.local/myx/myx.distro-.local/sh-lib/LocalTools.Config.include"
