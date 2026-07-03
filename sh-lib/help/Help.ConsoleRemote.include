@@ -1,4 +1,5 @@
+echo >&2
 echo "'Remote' command provides/lists commands related to distro-remote operations." >&2
-echo "Syntax: Remote <distro-remote-command-name>" >&2
+echo "📘 syntax: Remote <distro-remote-command-name>" >&2
 echo >&2
 set +e ; return 1
