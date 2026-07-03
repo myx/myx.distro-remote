@@ -32,7 +32,7 @@ DistroRemoteTools(){
 			bash "$MMDAPP/.local/myx/myx.distro-.local/sh-scripts/DistroLocalTools.fn.sh" --install-distro-remote
 			return 0
 		;;
-		''|--help)
+		''|--help|--help-syntax)
 			echo "📘 syntax: DistroRemoteTools.fn.sh <option>" >&2
 			echo "📘 syntax: DistroRemoteTools.fn.sh [--help]" >&2
 			if [ "$1" = "--help" ] ; then
