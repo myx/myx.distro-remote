@@ -5,5 +5,4 @@
 cd "$MMDAPP"
 export MMDAPP
 
-echo "not implemented yet" >&2
-exit 1
+bash "$MMDAPP/.local/myx/myx.distro-remote/sh-scripts/DistroRemoteTools.fn.sh" --upgrade-remote-tools
