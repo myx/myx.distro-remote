@@ -5,7 +5,12 @@ it is not enabled, see the comment 'type "ssh <user-name>@<computer-address>"'.
 
 ##    On .local system
 
-Type `ssh-copy-id  <user-name>@<computer-address>`, you will see something like:
+Run the following command to install your SSH public key on the remote machine:
+
+	# Copy your SSH public key to the remote host
+	`ssh-copy-id <user-name>@<computer-address>`
+
+You will see something like:
 
 ```text
 The authenticity of host '192.168.2.56 (192.168.2.56)' can't be established.

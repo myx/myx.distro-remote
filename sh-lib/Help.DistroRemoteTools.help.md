@@ -1,7 +1,7 @@
 📘 syntax: DistroRemoteTools.fn.sh <option>
 📘 syntax: DistroRemoteTools.fn.sh [--help]
 
-	Options:
+##  Options:
 
 		--upgrade-remote-tools
 			Upgrades local remote packages with latest `master` version.
@@ -73,14 +73,18 @@
 			Won't output helpful information on files created and how to use those files, when
 			`--quiet` option specified.
 
-	Examples (in Local Console, within workspace context):
+##  Examples (in Local Console, within workspace context):
 
-		DistroRemoteTools.fn.sh --upgrade-remote-tools
+		# Upgrade remote tooling from local installer scripts
+		`DistroRemoteTools.fn.sh --upgrade-remote-tools`
 
-		DistroRemoteTools.fn.sh --help
+		# Show remote tools help
+		`DistroRemoteTools.fn.sh --help`
 
-	Examples (in OS default shell):
+##  Examples (in OS default shell):
 
-		bash .local/myx/myx.distro-remote/sh-scripts/DistroRemoteTools.fn.sh --help
+		# Show remote tools help from the OS shell
+		`bash .local/myx/myx.distro-remote/sh-scripts/DistroRemoteTools.fn.sh --help`
 
-		bash .local/myx/myx.distro-remote/sh-scripts/DistroRemoteTools.fn.sh --upgrade-remote-tools
+		# Upgrade remote tooling from the OS shell
+		`bash .local/myx/myx.distro-remote/sh-scripts/DistroRemoteTools.fn.sh --upgrade-remote-tools`

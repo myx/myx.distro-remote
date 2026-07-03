@@ -7,7 +7,7 @@
 📘 syntax: DistroRemoteConsole.sh --interactive
 📘 syntax: DistroRemoteConsole.sh [--help]
 
-	Options:
+##  Options:
 
 		--start-console
 			Starts default remote console mode.
@@ -85,11 +85,17 @@
 		--interactive
 			Reserved option (currently not implemented).
 
-	Examples:
+##  Examples:
 
-		DistroRemoteConsole.sh --remotes --upsert dev SSH_HOST dev.example.org
-		DistroRemoteConsole.sh --remotes --upsert dev SSH_USER admin
-		DistroRemoteConsole.sh --remotes --select dev --all
-		DistroRemoteConsole.sh --select-remote dev
-		DistroRemoteConsole.sh --source --select-remote dev
-		DistroRemoteConsole.sh --select-remote-names
+		# Store SSH host for remote profile dev
+		`DistroRemoteConsole.sh --remotes --upsert dev SSH_HOST dev.example.org`
+		# Store SSH user for remote profile dev
+		`DistroRemoteConsole.sh --remotes --upsert dev SSH_USER admin`
+		# Print all configured SSH options for remote profile dev
+		`DistroRemoteConsole.sh --remotes --select dev --all`
+		# Start default remote console using profile dev
+		`DistroRemoteConsole.sh --select-remote dev`
+		# Start source console on remote profile dev
+		`DistroRemoteConsole.sh --source --select-remote dev`
+		# List configured remote profile names
+		`DistroRemoteConsole.sh --select-remote-names`
