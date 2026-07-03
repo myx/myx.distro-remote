@@ -15,6 +15,8 @@ fi
 DistroRemoteTools(){
 	local MDSC_CMD='DistroRemoteTools'
 	[ -z "$MDSC_DETAIL" ] || echo "> $MDSC_CMD $(printf '%q ' "$@")" >&2
+	local includeRemoteConfig="$MMDAPP/.local/myx/myx.distro-remote/sh-lib/DistroRemoteToolsConfig.include"
+	[ -f "$includeRemoteConfig" ] || includeRemoteConfig="$MMDAPP/source/myx/myx.distro-remote/sh-lib/DistroRemoteToolsConfig.include"
 
 	set -e
 
@@ -24,7 +26,7 @@ DistroRemoteTools(){
 			set +e ; return 1
 		;;
 		--system-config-option|--custom-config-option)
-			. "$MMDAPP/.local/myx/myx.distro-remote/sh-lib/DistroRemoteToolsConfig.include"
+			. "$includeRemoteConfig"
 			set +e ; return 1
 		;;
 		--upgrade-remote-tools)
