@@ -344,17 +344,7 @@ case "$0" in
 	*/myx/myx.distro-remote/sh-scripts/RemoteConsole.fn.sh)
 
 		if [ -z "$1" ] || [ "$1" = "--help" ] ; then
-			echo "📘 syntax: DistroRemoteConsole.sh [--start-console]" >&2
-			echo "📘 syntax: DistroRemoteConsole.sh [--start-local-console]" >&2
-			echo "📘 syntax: DistroRemoteConsole.sh --start-{source|deploy|remote|manage}-console" >&2
-			echo "📘 syntax: DistroRemoteConsole.sh [--{source|deploy|remote|manage}] --select-remote <remote-name-glob>" >&2
-			echo "📘 syntax: DistroRemoteConsole.sh --select-remote-names" >&2
-			echo "📘 syntax: DistroRemoteConsole.sh --remotes <operation>" >&2
-			echo "📘 syntax: DistroRemoteConsole.sh --interactive" >&2
-			echo "📘 syntax: DistroRemoteConsole.sh [--help]" >&2
-			if [ "$1" = "--help" ] ; then
-				myx.common lib/catMarkdown "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/Help.RemoteConsole.help.md" >&2
-			fi
+			. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/Help.RemoteConsole.include"
 			exit 1
 		fi
 		

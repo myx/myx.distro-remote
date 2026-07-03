@@ -7,6 +7,10 @@
 📘 syntax: DistroRemoteConsole.sh --interactive
 📘 syntax: DistroRemoteConsole.sh [--help]
 
+##  Arguments:
+
+		None. This command is option-driven.
+
 ##  Options:
 
 		--start-console
@@ -84,6 +88,9 @@
 
 		--interactive
 			Reserved option (currently not implemented).
+
+		--help
+			Prints command help and exits.
 
 ##  Examples:
 
