@@ -56,6 +56,10 @@
 					HISTSIZE, HISTFILESIZE and histappend to achieve the desired isolation or
 					sharing.
 
+				MDLT_ACTIONS_SH_WRAP
+					Shell command to wrap shell actions to execute. Allows to run actions on
+					remote runner machine or add extra logging/notification, etc...
+
 		--make-console-command [--quiet]
 			Re-Creates DistroRemoteConsole.sh script to be used as a command to quickly enter workspace
 			console.

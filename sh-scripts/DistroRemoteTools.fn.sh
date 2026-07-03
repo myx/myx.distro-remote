@@ -41,7 +41,7 @@ DistroRemoteTools(){
 			echo "📘 syntax: DistroRemoteTools.fn.sh --upgrade-remote-tools" >&2
 			echo "📘 syntax: DistroRemoteTools.fn.sh [--help]" >&2
 			if [ "$1" = "--help" ] ; then
-				cat "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/HelpDistroRemoteTools.text" >&2
+				myx.common lib/catMarkdown "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/Help.DistroRemoteTools.help.md" >&2
 			fi
 			return 0
 		;;

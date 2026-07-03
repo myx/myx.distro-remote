@@ -353,7 +353,7 @@ case "$0" in
 			echo "📘 syntax: DistroRemoteConsole.sh --interactive" >&2
 			echo "📘 syntax: DistroRemoteConsole.sh [--help]" >&2
 			if [ "$1" = "--help" ] ; then
-				cat "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/HelpRemoteConsole.text" >&2
+				myx.common lib/catMarkdown "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/Help.RemoteConsole.help.md" >&2
 			fi
 			exit 1
 		fi
