@@ -7,7 +7,7 @@ and workspace integration for connecting to and managing remote workspaces via S
 
 ## Distro commands:
 
-[**DistroRemoteTools** command manual](https://github.com/myx/myx.distro-remote/blob/main/sh-lib/Help.DistroRemoteTools.help.md)
+[**DistroRemoteTools** command manual](https://github.com/myx/myx.distro-remote/blob/main/sh-lib/help/Help.DistroRemoteTools.help.md)
 
 ---
 
