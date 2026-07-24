@@ -238,6 +238,49 @@ DistroRemoteConsoleStartSelectedRemote(){
 }
 
 
+DistroRemoteConsoleManageRemote(){
+	local remoteName="$1"
+	shift
+
+	local SSH_NAME SSH_HOST SSH_PORT SSH_USER SSH_HOME SSH_ARGS
+	SSH_NAME="$( DistroRemoteConsoleRemoteOption "$remoteName" SSH_NAME "" )"
+	SSH_HOST="$( DistroRemoteConsoleRemoteOption "$remoteName" SSH_HOST "" )"
+	SSH_PORT="$( DistroRemoteConsoleRemoteOption "$remoteName" SSH_PORT "22" )"
+	SSH_USER="$( DistroRemoteConsoleRemoteOption "$remoteName" SSH_USER "" )"
+	SSH_HOME="$( DistroRemoteConsoleRemoteOption "$remoteName" SSH_HOME "~" )"
+	SSH_ARGS="$( DistroRemoteConsoleRemoteOption "$remoteName" SSH_ARGS "" )"
+	[ -n "$SSH_HOST" ] || SSH_HOST="$SSH_NAME"
+
+	[ -n "$SSH_HOST" ] || {
+		echo "⛔ ERROR: DistroRemoteConsole: remote '$remoteName' has no SSH_HOST" >&2
+		set +e ; return 1
+	}
+
+	[ $# -gt 0 ] || {
+		echo "⛔ ERROR: DistroRemoteConsole: --manage expects a DistroRemoteTools option" >&2
+		set +e ; return 1
+	}
+
+	local target="$SSH_HOST"
+	[ -z "$SSH_USER" ] || target="$SSH_USER@$SSH_HOST"
+
+	# One-shot: invoke DistroRemoteTools.fn.sh directly (same entry point documented for
+	# "OS default shell" use, see Help.DistroRemoteTools.help.md) - no interactive console,
+	# no --rcfile session, ssh returns as soon as the verb completes.
+	local remoteCommand="cd $SSH_HOME && bash .local/myx/myx.distro-remote/sh-scripts/DistroRemoteTools.fn.sh"
+	local argument
+	for argument in "$@" ; do
+		remoteCommand="$remoteCommand $( printf '%q' "$argument" )"
+	done
+
+	if [ -n "$SSH_ARGS" ] ; then
+		ssh $SSH_ARGS -p "$SSH_PORT" "$target" "$remoteCommand"
+	else
+		ssh -p "$SSH_PORT" "$target" "$remoteCommand"
+	fi
+}
+
+
 DistroRemoteConsole(){
 	local MDSC_CMD='DistroRemoteConsole'
 	[ -z "$MDSC_DETAIL" ] || echo "> $MDSC_CMD $(printf '%q ' "$@")" >&2
@@ -295,8 +338,24 @@ DistroRemoteConsole(){
 			;;
 			--manage)
 				shift
-				echo "not implemented yet" >&2
-				set +e ; return 1
+				local manageRemoteGlob="$1"
+				[ -n "$manageRemoteGlob" ] && [ "${manageRemoteGlob#--}" = "$manageRemoteGlob" ] || {
+					echo "⛔ ERROR: $MDSC_CMD: --manage expects <remote-name-glob> <DistroRemoteTools-option> [args...]" >&2
+					set +e ; return 1
+				}
+				shift
+				[ $# -gt 0 ] || {
+					echo "⛔ ERROR: $MDSC_CMD: --manage expects a DistroRemoteTools option after <remote-name-glob>" >&2
+					set +e ; return 1
+				}
+				local manageRemoteName
+				manageRemoteName="$( DistroRemoteConsoleResolveRemoteName "$manageRemoteGlob" )" || return 1
+				[ -n "$manageRemoteName" ] || {
+					echo "⛔ ERROR: $MDSC_CMD: remote not found: $manageRemoteGlob" >&2
+					set +e ; return 1
+				}
+				DistroRemoteConsoleManageRemote "$manageRemoteName" "$@"
+				return $?
 			;;
 			--interactive)
 				shift

@@ -1,9 +1,10 @@
 📘 syntax: DistroRemoteConsole.sh [--start-console]
 📘 syntax: DistroRemoteConsole.sh [--start-local-console]
-📘 syntax: DistroRemoteConsole.sh --start-{source|deploy|remote|manage}-console
-📘 syntax: DistroRemoteConsole.sh [--{source|deploy|remote|manage}] --select-remote <remote-name-glob>
+📘 syntax: DistroRemoteConsole.sh --start-{source|deploy|remote}-console
+📘 syntax: DistroRemoteConsole.sh [--{source|deploy|remote}] --select-remote <remote-name-glob>
 📘 syntax: DistroRemoteConsole.sh --select-remote-names
 📘 syntax: DistroRemoteConsole.sh --remotes <operation>
+📘 syntax: DistroRemoteConsole.sh --manage <remote-name-glob> <DistroRemoteTools-option> [args...]
 📘 syntax: DistroRemoteConsole.sh --interactive
 📘 syntax: DistroRemoteConsole.sh [--help]
 
@@ -19,7 +20,7 @@
 		--start-local-console
 			Starts .local console mode.
 
-		--start-{source|deploy|remote|manage}-console
+		--start-{source|deploy|remote}-console
 			Starts an interactive bash session using the selected subsystem rc file.
 
 		--source
@@ -27,8 +28,14 @@
 		--remote
 			Overrides default console type used by --select-remote.
 
-		--manage
-			Injects and runs remote console from local files.
+		--manage <remote-name-glob> <DistroRemoteTools-option> [args...]
+			Runs a single `DistroRemoteTools` maintenance verb (e.g. `--upgrade-remote-tools`,
+			`--make-console-command`) on an already-registered remote over SSH and exits -
+			one-shot, non-interactive. Distinct from `--select-remote`, which opens an
+			interactive console session instead of running a single command.
+
+			The remote is resolved the same way as `--select-remote` (exactly one match
+			required; ambiguous or missing globs are an error).
 
 		--select-remote [<remote-name-glob>]
 			Uses target from preconfigured remotes. When no selector is provided, all
@@ -106,3 +113,7 @@
 		`DistroRemoteConsole.sh --source --select-remote dev`
 		# List configured remote profile names
 		`DistroRemoteConsole.sh --select-remote-names`
+		# Upgrade remote tooling on profile dev, one-shot, without opening a console
+		`DistroRemoteConsole.sh --manage dev --upgrade-remote-tools`
+		# Re-create the console launcher script on profile dev, one-shot
+		`DistroRemoteConsole.sh --manage dev --make-console-command`
