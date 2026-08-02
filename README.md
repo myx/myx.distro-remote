@@ -36,3 +36,4 @@ See: [distro-system](https://github.com/myx/myx.distro-system?tab=readme-ov-file
 See: [distro-deploy](https://github.com/myx/myx.distro-deploy?tab=readme-ov-file#myxdistro-deploy)
 See: [distro-source](https://github.com/myx/myx.distro-source?tab=readme-ov-file#myxdistro-source)
 See: [distro-remote](https://github.com/myx/myx.distro-remote?tab=readme-ov-file#myxdistro-remote)
+See: [distro-agents](https://github.com/myx/myx.distro-agents?tab=readme-ov-file#myxdistro-agents)
