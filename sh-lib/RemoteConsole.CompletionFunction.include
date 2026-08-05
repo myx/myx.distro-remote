@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# ^^^ for syntax checking in the editor only
+
+set -e
+
+local cmd sub cur roots_list roots list suggestion filtered
+
+cmd="${COMP_WORDS[0]}"            # the command you invoked
+sub="${COMP_WORDS[1]}"            # the 1st argument (if any)
+cur="${COMP_WORDS[COMP_CWORD]}"   # what’s under the cursor
+
+#── build the true “root verbs” list
+roots_list="Require Remote"
+roots=""
+for v in $roots_list; do
+	[ "$(type -t "$v")" = function ] && roots="$roots $v"
+done
+
+#── SLOT 1: only if the invoked CMD is NOT itself a root
+if [ -z "$cmd" ] || [ "$COMP_CWORD" -eq 1 ] && ! printf '%s\n' $roots | grep -qx "$cmd" ; then
+	case "$cmd" in
+		*.fn.sh)
+		;;
+		*)
+			# no prefix yet → only your roots
+			COMPREPLY=( $(compgen -W "$roots" -- "") )
+			# dedupe & sort
+			COMPREPLY=( $(printf '%s\n' "${COMPREPLY[@]}" | sort -u) )
+			return 0
+		;;
+	esac
+fi
+
+#── SLOT 2+: if the first word IS one of your roots, dispatch
+case "$cmd" in
+	Require)
+		list=$(Remote --completion-require)
+		if [ "$COMP_CWORD" -eq 1 ]; then
+			COMPREPLY=( $(compgen -W "$list" -- "$cur") )
+			return 0
+		fi
+		COMPREPLY=()    # eat the TAB, no suggestions
+		set +e ; return 1
+	;;
+	Remote)
+		while IFS= read -r line; do
+			COMPREPLY+=("$line")
+		done < <( Remote --completion-helper-remote \
+			"$COMP_LINE" "remote" \
+			'^\(DistroRemote\|Remote\).*.fn.sh$' \
+		) && return 0
+		# otherwise fall through so default/file-name completion can fire
+	;;
+	*.fn.sh)
+		if COMPREPLY=( $( Remote --completion-helper-remote \
+			"$COMP_LINE" "$cmd" \
+		) ) ; then
+			return 0
+		fi
+		# otherwise fall through so default/file-name completion can fire
+	;;
+esac
+
+set +e
+
+COMPREPLY=( $(compgen -c -- "$cur") $(compgen -f -- "$cur") )
+return 0

@@ -2,6 +2,13 @@
 # ^^^ for syntax checking in the editor only
 
 case "$1" in
+	--completion-helper-remote)
+		shift
+		(
+			. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/RemoteConsole.CompletionHelperRemote.fn.include"
+			RemoteConsoleCompletionHelperRemote "$@"
+		)
+	;;
 	--completion-require)
 		shift
 		Remote --completion-all \
