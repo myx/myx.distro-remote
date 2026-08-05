@@ -99,6 +99,12 @@ done
 complete -W "Help Require" \
          -o default -o filenames \
          "*"
+
+for f in "$MDLT_ORIGIN"/myx/myx.distro-{remote,.local,system,deploy,source}/sh-scripts/*.fn.sh; do
+	[ -x "$f" ] || continue
+	complete -F Remote "${f##*/}"
+done
+
 complete -F Remote \
          -o filenames \
         "Action" "Require" "Remote" "Distro" "Deploy" "Source"
