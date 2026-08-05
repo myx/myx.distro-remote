@@ -16,7 +16,7 @@ case "$1" in
 	;;
 	''|--help|--help-syntax)
 		shift
-		( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/Help.ConsoleRemote.include" )
+		( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/HelpConsoleRemote.include" )
 		set +e ; return 1
 	;;
 	--start-console|--start-remote-tools-console)

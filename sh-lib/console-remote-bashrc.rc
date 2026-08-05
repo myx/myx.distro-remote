@@ -4,7 +4,7 @@
 [ -z "$MDLT_ORIGIN" ] && echo "RemoteConsole: Working in $MMDAPP" >&2
 [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc" 
 
-[ -z "MDSC_ARGUMENTS" ] || {
+[ -z "$MDSC_ARGUMENTS" ] || {
 	set -- $MDSC_ARGUMENTS
 	export MDSC_ARGUMENTS=""
 }
@@ -49,7 +49,7 @@ if [ -d "$MDLT_ORIGIN/myx/myx.distro-remote/sh-scripts" ] ; then
 fi
 
 Help(){
-	( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/HelpDistroRemoteConsole.include" )
+	( . "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/Help.DistroRemoteConsole.include" )
 	set +e ; return 1
 }
 
@@ -81,6 +81,9 @@ while true; do
 		*)
 			echo "⛔ ERROR: unknown MDSC_HISTORY: $MDSC_HISTORY" >&2; exit 1 ;;
 	esac 
+	[ -f "${HISTFILE-}" ] || {
+		cat "$MDLT_ORIGIN/myx/myx.distro-source/sh-lib/SourceConsole.History.seed.txt" > "$HISTFILE"
+	}
 	export HISTCONTROL=ignoredups:erasedups
 	export HISTSIZE=999
 	export HISTFILESIZE=99999

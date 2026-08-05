@@ -403,7 +403,7 @@ case "$0" in
 	*/myx/myx.distro-remote/sh-scripts/RemoteConsole.fn.sh)
 
 		if [ -z "$1" ] || [ "$1" = "--help" ] ; then
-			. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/Help.RemoteConsole.include"
+			. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/Help.DistroRemoteConsoleScript.include"
 			exit 1
 		fi
 		
