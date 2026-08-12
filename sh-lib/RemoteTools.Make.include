@@ -43,7 +43,17 @@ case "$1" in
 
 			if [ -z "$MMDAPP" ] ; then
 				export MMDAPP
-				MMDAPP="$( ( cd $(dirname "$0") ; pwd ) )"
+				## Quoted, and `&&`-chained. Unquoted, $(dirname "$0") word-
+				## splits the moment the workspace path contains a space, and
+				## the way it then fails is worse than not starting: `cd` gets
+				## several arguments and fails, `;` runs `pwd` regardless, and
+				## the console comes up with MMDAPP set to whatever directory
+				## the caller happened to be in.
+				MMDAPP="$( ( cd "$( dirname "$0" )" && pwd ) )" || MMDAPP=""
+				if [ -z "$MMDAPP" ] ; then
+					echo "⛔ ERROR: cannot resolve this console's own directory from '$0'." >&2
+					exit 1
+				fi
 			fi
 
 			[ -d "$MMDAPP/.local" ] || ( echo "⛔ ERROR: expecting '$MMDAPP/.local' directory." >&2 && exit 1 )
@@ -86,11 +96,13 @@ case "$1" in
 			if [ "$1" == "--non-interactive" ] ; then
 				shift
 				{
+					echo 'set -e'
 					echo MDSC_ARGUMENTS="$@"
-					echo ". '$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc'"
+					echo ". '$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/console-remote-bashrc.rc' || exit \$?"
+					echo 'set +e'
 					cat
 				} | bash
-				exit 0
+				exit $?
 			fi
 			
 			export MDSC_ARGUMENTS="$@"
