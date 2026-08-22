@@ -79,8 +79,7 @@ Manage them with:
 - `DistroRemoteConsole.sh --help` and `DistroRemoteTools.fn.sh --help` — full syntax, options and examples.
 - `Remote --help` — remote-context dispatcher syntax.
 - Press TAB after a command name and a space for shell completion.
-- Setting up a Mac as a remote: `.local/myx/myx.distro-remote/sh-lib/help/Man.SetupRemoteMac.help.md`.
-- [DistroRemoteTools command manual](https://github.com/myx/myx.distro-remote/blob/main/sh-lib/help/Help.DistroRemoteTools.help.md)
+- [Setting up a Mac as a remote](https://github.com/myx/myx.distro-remote/blob/main/sh-lib/help/Man.SetupRemoteMac.help.md) — step-by-step guide.
 
 ## Related packages
 
