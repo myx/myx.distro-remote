@@ -1,7 +1,11 @@
 # myx.distro-remote
 
-Tools for working with myx.distro on a remote host. Provides `Remote` console command
-and workspace integration for connecting to and managing remote workspaces via SSH.
+Tools for driving a myx.distro workspace that lives on another machine, from here.
+Provides the `Remote` console command and workspace integration for connecting to
+and managing those remote workspaces via SSH.
+
+This is not the route to remote deploy targets — `myx.distro-deploy` reaches those.
+Here "remote" qualifies the workspace, not the target of a deployment.
 
 ---
 
