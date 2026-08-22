@@ -33,7 +33,7 @@ Open a console on the remote workspace:
 
 	DistroRemoteConsole.sh --select-remote dev
 
-Open the remote's *source* or *deploy* console instead of its default:
+Open the remote's source or deploy console instead of its default:
 
 	DistroRemoteConsole.sh --source --select-remote dev
 	DistroRemoteConsole.sh --deploy --select-remote dev
@@ -53,12 +53,20 @@ profile; an ambiguous or unmatched glob is an error.
 
 ## Remote profile options
 
-	SSH_NAME   alias and fallback for SSH_HOST
-	SSH_HOST   remote host name or IP
-	SSH_PORT   SSH port; default 22
-	SSH_USER   SSH user; when empty, the ssh client default is used
-	SSH_HOME   remote workspace directory entered before launching its console
-	SSH_ARGS   extra raw ssh arguments, appended before host and command
+- `SSH_HOST` — remote host name or IP.
+- `SSH_NAME` — alias and fallback for `SSH_HOST`.
+- `SSH_PORT` — SSH port. Default 22.
+- `SSH_USER` — SSH user. When empty, the ssh client default is used.
+- `SSH_HOME` — remote workspace directory entered before launching its console.
+- `SSH_ARGS` — extra raw ssh arguments, appended before host and command.
+
+Manage them with:
+
+- `--remotes --upsert <profile> <option> <value>` — set an option.
+- `--remotes --upsert-if <profile> <option> <value> <if-value>` — set it only when it matches.
+- `--remotes --select <profile> <option> [<default>]` — read one option.
+- `--remotes --select <profile> --all` — read every option.
+- `--remotes --delete <profile> [<option> [<if-value>]]` — delete a profile or one option.
 
 ## Commands
 
@@ -68,8 +76,8 @@ profile; an ambiguous or unmatched glob is an error.
 
 ## Getting help
 
-- `DistroRemoteConsole.sh --help` and `DistroRemoteTools.fn.sh --help` print full syntax, options and examples.
-- `Remote --help` prints the remote-context dispatcher syntax.
+- `DistroRemoteConsole.sh --help` and `DistroRemoteTools.fn.sh --help` — full syntax, options and examples.
+- `Remote --help` — remote-context dispatcher syntax.
 - Press TAB after a command name and a space for shell completion.
 - Setting up a Mac as a remote: `.local/myx/myx.distro-remote/sh-lib/help/Man.SetupRemoteMac.help.md`.
 - [DistroRemoteTools command manual](https://github.com/myx/myx.distro-remote/blob/main/sh-lib/help/Help.DistroRemoteTools.help.md)
@@ -81,4 +89,4 @@ profile; an ambiguous or unmatched glob is an error.
 - [myx.distro-system](https://github.com/myx/myx.distro-system) — shared indexing and query tools.
 - [myx.distro-source](https://github.com/myx/myx.distro-source) — build source into a distro image.
 - [myx.distro-deploy](https://github.com/myx/myx.distro-deploy) — deploy a distro image to hosts.
-- [myx.distro-agents](https://github.com/myx/myx.distro-agents) — start an AI-agent CLI console.
+- [myx.distro-agents](https://github.com/myx/myx.distro-agents) — the magic-team agents and their tooling.
