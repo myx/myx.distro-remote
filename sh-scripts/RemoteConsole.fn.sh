@@ -10,15 +10,9 @@ fi
 
 
 
-DistroRemoteConsoleLegacySettingsFile(){
-	echo "$MMDAPP/.local/MDLC.remote.settings.env"
-}
-
-
 DistroRemoteConsoleLegacySelect(){
 	local remoteName="$1" optionName="$2"
-	local settingsFile
-	settingsFile="$( DistroRemoteConsoleLegacySettingsFile )"
+	local settingsFile="$MMDAPP/.local/MDLC.remote.settings.env"
 	[ -f "$settingsFile" ] || return 0
 	awk -F '\t' -v rn="$remoteName" -v on="$optionName" '
 		$1 == rn && $2 == on { value = $3 }
@@ -28,8 +22,7 @@ DistroRemoteConsoleLegacySelect(){
 
 
 DistroRemoteConsoleLegacyNames(){
-	local settingsFile
-	settingsFile="$( DistroRemoteConsoleLegacySettingsFile )"
+	local settingsFile="$MMDAPP/.local/MDLC.remote.settings.env"
 	[ -f "$settingsFile" ] || return 0
 	awk -F '\t' '
 		NF >= 2 {
@@ -82,8 +75,7 @@ DistroRemoteConsoleRemotes(){
 					echo "$output"
 					return 0
 				fi
-				local settingsFile
-				settingsFile="$( DistroRemoteConsoleLegacySettingsFile )"
+				local settingsFile="$MMDAPP/.local/MDLC.remote.settings.env"
 				[ ! -f "$settingsFile" ] || awk -F '\t' -v rn="$remoteName" '
 					$1 == rn {
 						printf "%s=%s\n", $2, $3
@@ -340,18 +332,18 @@ DistroRemoteConsole(){
 				shift
 				local manageRemoteGlob="$1"
 				[ -n "$manageRemoteGlob" ] && [ "${manageRemoteGlob#--}" = "$manageRemoteGlob" ] || {
-					echo "⛔ ERROR: $MDSC_CMD: --manage expects <remote-name-glob> <DistroRemoteTools-option> [args...]" >&2
+					echo "$MDSC_CMD: ⛔ ERROR: --manage expects <remote-name-glob> <DistroRemoteTools-option> [args...]" >&2
 					set +e ; return 1
 				}
 				shift
 				[ $# -gt 0 ] || {
-					echo "⛔ ERROR: $MDSC_CMD: --manage expects a DistroRemoteTools option after <remote-name-glob>" >&2
+					echo "$MDSC_CMD: ⛔ ERROR: --manage expects a DistroRemoteTools option after <remote-name-glob>" >&2
 					set +e ; return 1
 				}
 				local manageRemoteName
 				manageRemoteName="$( DistroRemoteConsoleResolveRemoteName "$manageRemoteGlob" )" || return 1
 				[ -n "$manageRemoteName" ] || {
-					echo "⛔ ERROR: $MDSC_CMD: remote not found: $manageRemoteGlob" >&2
+					echo "$MDSC_CMD: ⛔ ERROR: remote not found: $manageRemoteGlob" >&2
 					set +e ; return 1
 				}
 				DistroRemoteConsoleManageRemote "$manageRemoteName" "$@"
@@ -367,7 +359,7 @@ DistroRemoteConsole(){
 					local remoteName
 					remoteName="$( DistroRemoteConsoleResolveRemoteName "$remoteNameGlob" )" || return 1
 					[ -n "$remoteName" ] || {
-						echo "⛔ ERROR: $MDSC_CMD: remote not found: $remoteNameGlob" >&2
+						echo "$MDSC_CMD: ⛔ ERROR: remote not found: $remoteNameGlob" >&2
 						set +e ; return 1
 					}
 					DistroRemoteConsoleStartSelectedRemote "$remoteName" "$consoleModeOverride" "$@"
@@ -377,7 +369,7 @@ DistroRemoteConsole(){
 					DistroRemoteConsole "--start-$consoleModeOverride-console" "$@"
 					return 0
 				fi
-				echo "⛔ ERROR: $MDSC_CMD: more arguments expected" >&2
+				echo "$MDSC_CMD: ⛔ ERROR: more arguments expected" >&2
 				set +e ; return 1
 			;;
 			*)
@@ -385,13 +377,13 @@ DistroRemoteConsole(){
 					local remoteName
 					remoteName="$( DistroRemoteConsoleResolveRemoteName "$remoteNameGlob" )" || return 1
 					[ -n "$remoteName" ] || {
-						echo "⛔ ERROR: $MDSC_CMD: remote not found: $remoteNameGlob" >&2
+						echo "$MDSC_CMD: ⛔ ERROR: remote not found: $remoteNameGlob" >&2
 						set +e ; return 1
 					}
 					DistroRemoteConsoleStartSelectedRemote "$remoteName" "$consoleModeOverride" "$@"
 					return $?
 				fi
-				echo "⛔ ERROR: $MDSC_CMD: invalid option: $1" >&2
+				echo "$MDSC_CMD: ⛔ ERROR: invalid option: $1" >&2
 				set +e ; return 1
 			;;
 		esac
@@ -403,7 +395,7 @@ case "$0" in
 	*/myx/myx.distro-remote/sh-scripts/RemoteConsole.fn.sh)
 
 		if [ -z "$1" ] || [ "$1" = "--help" ] ; then
-			. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/Help.DistroRemoteConsoleScript.include"
+			. "$MDLT_ORIGIN/myx/myx.distro-remote/sh-lib/help/Help.RemoteConsole.include"
 			exit 1
 		fi
 		
