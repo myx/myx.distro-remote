@@ -1,4 +1,4 @@
-📘 syntax: DistroRemoteTools.fn.sh --make-workspace-integration-files [--quiet]
+📘 syntax: DistroRemoteTools.fn.sh --make-workspace-integrations [--quiet]
 📘 syntax: DistroRemoteTools.fn.sh --make-console-command [--quiet]
 📘 syntax: DistroRemoteTools.fn.sh --make-console-script
 📘 syntax: DistroRemoteTools.fn.sh --{system|custom}-config-option <operation>
@@ -16,7 +16,7 @@
 
 ##  Options:
 
-		--make-workspace-integration-files [--quiet]
+		--make-workspace-integrations [--quiet]
 			Creates/updates remote workspace integration artifacts.
 
 			Runs all relevant `--make-*` commands, (re-)creating all workspace
