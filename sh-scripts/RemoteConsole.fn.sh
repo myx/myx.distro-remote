@@ -104,11 +104,6 @@ DistroRemoteConsoleRemoteOption(){
 		echo "$value"
 		return 0
 	fi
-	value="$( DistroRemoteConsoleLegacySelect "$remoteName" "$optionName" )"
-	if [ -n "$value" ] ; then
-		echo "$value"
-		return 0
-	fi
 	echo "${defaultValue:-}"
 }
 
