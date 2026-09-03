@@ -10,33 +10,6 @@ fi
 
 
 
-DistroRemoteConsoleLegacySelect(){
-	local remoteName="$1" optionName="$2"
-	local settingsFile="$MMDAPP/.local/MDLC.remote.settings.env"
-	[ -f "$settingsFile" ] || return 0
-	awk -F '\t' -v rn="$remoteName" -v on="$optionName" '
-		$1 == rn && $2 == on { value = $3 }
-		END { print value }
-	' "$settingsFile"
-}
-
-
-DistroRemoteConsoleLegacyNames(){
-	local settingsFile="$MMDAPP/.local/MDLC.remote.settings.env"
-	[ -f "$settingsFile" ] || return 0
-	awk -F '\t' '
-		NF >= 2 {
-			names[$1] = 1
-		}
-		END {
-			for (name in names) {
-				print name
-			}
-		}
-	' "$settingsFile" | sort
-}
-
-
 DistroRemoteConsoleRemotes(){
 	local op="$1"
 	local remoteName="$2"
@@ -69,28 +42,12 @@ DistroRemoteConsoleRemotes(){
 				set +e ; return 1
 			}
 			if [ "$optionName" = "--all" ] ; then
-				local output
-				output="$( DistroRemoteConsoleRemotes --backend "$remoteName" --select --all )"
-				if [ -n "$output" ] ; then
-					echo "$output"
-					return 0
-				fi
-				local settingsFile="$MMDAPP/.local/MDLC.remote.settings.env"
-				[ ! -f "$settingsFile" ] || awk -F '\t' -v rn="$remoteName" '
-					$1 == rn {
-						printf "%s=%s\n", $2, $3
-					}
-				' "$settingsFile"
+				DistroRemoteConsoleRemotes --backend "$remoteName" --select --all
 				return 0
 			fi
 
 			local value
 			value="$( DistroRemoteConsoleRemotes --backend "$remoteName" --select "$optionName" "" )"
-			if [ -n "$value" ] ; then
-				echo "$value"
-				return 0
-			fi
-			value="$( DistroRemoteConsoleLegacySelect "$remoteName" "$optionName" )"
 			if [ -n "$value" ] ; then
 				echo "$value"
 				return 0
@@ -117,13 +74,10 @@ DistroRemoteConsoleRemotes(){
 			return $?
 		;;
 		--select-names)
-			{
-				if [ -d "$MMDAPP/remote/static" ] ; then
-					find "$MMDAPP/remote/static" -maxdepth 1 -type f -name '*.remote.env' 2>/dev/null \
-					| sed -e 's:^.*/::' -e 's:\.remote\.env$::'
-				fi
-				DistroRemoteConsoleLegacyNames
-			} | awk '!seen[$0]++ { print }' | sort
+			if [ -d "$MMDAPP/remote/static" ] ; then
+				find "$MMDAPP/remote/static" -maxdepth 1 -type f -name '*.remote.env' 2>/dev/null \
+				| sed -e 's:^.*/::' -e 's:\.remote\.env$::' | sort
+			fi
 			return 0
 		;;
 		--backend)
