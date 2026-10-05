@@ -18,3 +18,15 @@ Manage them with:
 - `--remotes --select <profile> <option> [<default>]` — read one option.
 - `--remotes --select <profile> --all` — read every option.
 - `--remotes --delete <profile> [<option> [<if-value>]]` — delete a profile or one option.
+
+
+## Workspace settings and context variables
+
+`DistroRemoteTools.fn.sh --system-config-option` and `--custom-config-option` read and change the workspace settings. They accept the same operations and settings as the local tools. The [myx.distro-.local](https://github.com/myx/myx.distro-.local/blob/main/docs/configuration.md) docs describe them.
+
+Remote mode uses these variables:
+
+- `MMDAPP` — the workspace root path.
+- `MDLT_ORIGIN` — the source root for distro command libraries and scripts.
+- `MDSC_INMODE` — the current console mode, `remote`.
+- `MDSC_DETAIL` — debug verbosity: empty, `true` or `full`.
