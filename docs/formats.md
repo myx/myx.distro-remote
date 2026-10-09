@@ -10,6 +10,10 @@ A profile name is a short name you choose, such as `dev`. `--select-remote` and 
 - An ambiguous or unmatched glob is an error.
 - `--select-remote` with no glob considers every registered name. It then needs exactly one registered remote.
 
+## Where profiles are stored
+
+Each profile is one file in the workspace: `remote/static/<profile>.remote.env`. `--select-remote-names` lists these files.
+
 ## How the profile options combine
 
 - `SSH_HOST` is the host name or IP address. `SSH_NAME` is an alias, and it is the fallback when `SSH_HOST` is empty.

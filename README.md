@@ -6,6 +6,17 @@ a remote once, then open its console or run a maintenance command on it over SSH
 Here "remote" qualifies the *workspace*, not the target of a deployment. To reach
 deploy targets, use `myx.distro-deploy`.
 
+Use it when you keep a myx.distro workspace on another machine and want to reach it from this one.
+
+## First command
+
+Register a remote under a short profile name, then open its console:
+
+	DistroRemoteConsole.sh --remotes --upsert <profile> SSH_HOST <host>
+	DistroRemoteConsole.sh --select-remote <profile>
+
+[Use](docs/use.md) shows the other profile options.
+
 ## Documentation
 
 - [Installation](docs/installation.md) — requirements, install, upgrade and uninstall.
