@@ -265,6 +265,7 @@ DistroRemoteConsole(){
 			--start-*-console)
 				local type=${1#--start-}; type=${type%-console}
 				local file="$MDLT_ORIGIN/myx/myx.distro-$type/sh-lib/console-$type-bashrc.rc"
+				[ "$type" != agents ] || file="$MDLT_ORIGIN/myx/myx.distro-agents/sh-lib/manager/console-agents-bashrc.rc"
 				[ -f "$file" ] || {
 					echo "⛔ ERROR: $1 subsystem is not installed in this workspace" >&2
 					set +e ; return 1
