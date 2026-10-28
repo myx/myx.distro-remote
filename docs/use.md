@@ -39,3 +39,12 @@ Remove a profile, or one of its options:
 
 `--select-remote` and `--manage` both require the glob to match exactly one
 profile; an ambiguous or unmatched glob is an error.
+
+## The workspace on the host
+
+These operations reach a workspace that already exists on the host. Nothing here
+creates one.
+
+Create it there with the workspace installer, run on that host:
+
+	TGT_APP_PATH=<directory> sh workspace-install.sh --config-file <config>
